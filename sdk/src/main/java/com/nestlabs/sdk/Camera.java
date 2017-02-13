@@ -268,6 +268,7 @@ public class Camera extends Device implements Parcelable {
     static class LastEvent implements Parcelable {
         public static final String KEY_HAS_SOUND = "has_sound";
         public static final String KEY_HAS_MOTION = "has_motion";
+        public static final String KEY_HAS_PERSON = "has_person";
         public static final String KEY_START_TIME = "start_time";
         public static final String KEY_END_TIME = "end_time";
         public static final String KEY_URLS_EXPIRE_TIME = "urls_expire_time";
@@ -282,6 +283,9 @@ public class Camera extends Device implements Parcelable {
 
         @JsonProperty(KEY_HAS_MOTION)
         private boolean mHasMotion;
+
+        @JsonProperty(KEY_HAS_PERSON)
+        private boolean mHasPerson;
 
         @JsonProperty(KEY_START_TIME)
         private String mStartTime;
@@ -315,6 +319,7 @@ public class Camera extends Device implements Parcelable {
             this();
             mHasSound = Utils.readBoolean(in);
             mHasMotion = Utils.readBoolean(in);
+            mHasPerson = Utils.readBoolean(in);
             mStartTime = in.readString();
             mEndTime = in.readString();
             mUrlsExpireTime = in.readString();
@@ -372,6 +377,16 @@ public class Camera extends Device implements Parcelable {
         @JsonGetter(KEY_HAS_MOTION)
         public boolean getHasMotion() {
             return mHasMotion;
+        }
+
+        /**
+         * Returns whether person was detected in the last event.
+         *
+         * @return true if person was detected, false if motion was not detected.
+         */
+        @JsonGetter(KEY_HAS_PERSON)
+        public boolean getHasPerson() {
+            return mHasPerson;
         }
 
         /**
@@ -465,6 +480,7 @@ public class Camera extends Device implements Parcelable {
         public void writeToParcel(Parcel parcel, int i) {
             Utils.writeBoolean(parcel, mHasSound);
             Utils.writeBoolean(parcel, mHasMotion);
+            Utils.writeBoolean(parcel, mHasPerson);
             parcel.writeString(mStartTime);
             parcel.writeString(mEndTime);
             parcel.writeString(mUrlsExpireTime);
