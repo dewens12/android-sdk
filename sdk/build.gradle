@@ -7,18 +7,12 @@ apply plugin: 'com.github.dcendents.android-maven'
 
 ext {
     pkgGroupId = 'com.nestlabs'
-    pkgVersion = '1.1.1'
+    pkgVersion = '2.0.0'
     pkgName = 'android-sdk'
     pkgDesc = 'Nest Android SDK'
     githubRepo = 'github.com/nestlabs/android-sdk'
     pkgLicense = 'Apache-2.0'
     pkgLicenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    devInfo = {
-        id 'ryanseys'
-        name 'Ryan Seys'
-        url 'https://github.com/ryanseys'
-        email 'ryanseys@google.com'
-    }
     bintrayUser = "$System.env.BINTRAY_USER"
     bintrayKey = "$System.env.BINTRAY_API_KEY"
     bintrayOrg = 'nestlabs'
@@ -32,18 +26,15 @@ version pkgVersion
 project.archivesBaseName = pkgName
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
     resourcePrefix 'nest_'
-
     lintOptions {
-      disable "InvalidPackage" // ignore complains about java.nio references
-   }
-
+        disable "InvalidPackage" // ignore complains about java.nio references
+    }
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName pkgVersion
 
@@ -53,7 +44,6 @@ android {
 
         consumerProguardFiles 'proguard-consumer-rules.pro'
     }
-
     buildTypes {
         debug {
             debuggable true
@@ -64,21 +54,23 @@ android {
                     'proguard-consumer-rules.pro'
         }
     }
-
     packagingOptions {
         exclude 'META-INF/LICENSE'
         exclude 'META-INF/NOTICE'
     }
-
     lintOptions {
         abortOnError false
     }
-
     testOptions {
         unitTests.returnDefaultValues = true
     }
-
-    sourceSets { main { java.srcDirs = ['src/main/java'] } }
+    sourceSets {
+        main {
+            java.srcDirs = ['src/main/java']
+        }
+    }
+    productFlavors {
+    }
 }
 
 task androidJavadocs(type: Javadoc) {
@@ -133,10 +125,6 @@ install {
                     developerConnection scmUrl
                 }
 
-                developers {
-                    developer devInfo
-                }
-
                 licenses {
                     license {
                         name pkgLicense
@@ -183,23 +171,17 @@ bintray {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-
     testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'com.squareup.okhttp3:mockwebserver:3.0.1'
+    testCompile 'org.robolectric:robolectric:3.3.2'
     testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'org.powermock:powermock-module-junit4:1.6.2'
-    testCompile 'org.powermock:powermock-api-mockito:1.6.2'
-    testCompile "org.powermock:powermock-module-junit4-rule:1.6.2"
-    testCompile "org.powermock:powermock-api-mockito:1.6.2"
-    testCompile "org.powermock:powermock-classloading-xstream:1.6.2"
+    testCompile 'org.powermock:powermock-module-junit4:1.6.6'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.6'
 
-    compile 'com.android.support:support-annotations:23.1.1'
-    compile 'com.firebase:firebase-client-android:1.1.1'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.8'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.7.8'
-    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile 'com.android.support:support-annotations:25.3.1'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.8.8'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.8.8'
+    compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'commons-io:commons-io:2.4'
 }
 

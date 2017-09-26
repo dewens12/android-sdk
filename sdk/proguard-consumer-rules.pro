@@ -15,3 +15,6 @@
   <init>(...);
 }
 
+-keep class * {
+    public private *;
+}

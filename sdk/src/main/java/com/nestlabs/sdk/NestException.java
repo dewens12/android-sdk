@@ -17,7 +17,7 @@
 package com.nestlabs.sdk;
 
 /**
- * An Exception for returning encountered errors in using {@link NestAPI}.
+ * An Exception for returning encountered errors in using {@link WwnClient}.
  */
 public class NestException extends Exception {
 

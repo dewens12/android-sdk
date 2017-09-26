@@ -16,6 +16,8 @@
 
 package com.nestlabs.sdk;
 
+import com.nestlabs.sdk.models.NestToken;
+
 import org.junit.Test;
 
 import java.util.Random;

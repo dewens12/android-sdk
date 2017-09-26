@@ -18,10 +18,19 @@ package com.nestlabs.sdk;
 
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
+import com.nestlabs.sdk.models.Camera;
+import com.nestlabs.sdk.models.DeviceUpdate;
+import com.nestlabs.sdk.models.GlobalUpdate;
+import com.nestlabs.sdk.models.Metadata;
+import com.nestlabs.sdk.models.SmokeCOAlarm;
+import com.nestlabs.sdk.models.Structure;
+import com.nestlabs.sdk.models.Thermostat;
+import com.nestlabs.sdk.rest.parsers.ErrorMessage;
+
+import java.util.List;
 
 /**
- * NestListener are listeners that receive events from the NestAPI and allow a user to complete
+ * NestListener are listeners that receive events from the WwnClient and allow a user to complete
  * actions when those events occur.
  */
 public interface NestListener {
@@ -61,10 +70,10 @@ public interface NestListener {
         /**
          * Called when an update occurs on any {@link Camera} device.
          *
-         * @param cameras an {@link ArrayList} of all {@link Camera} objects in the user's account
+         * @param cameras an {@link List} of all {@link Camera} objects in the user's account
          *                at the time of the update.
          */
-        void onUpdate(@NonNull ArrayList<Camera> cameras);
+        void onUpdate(@NonNull List<Camera> cameras);
     }
 
     /**
@@ -74,10 +83,10 @@ public interface NestListener {
         /**
          * Called when an update occurs on any {@link Thermostat} device.
          *
-         * @param thermostats an {@link ArrayList} of all {@link Thermostat} objects in the user's
+         * @param thermostats an {@link List} of all {@link Thermostat} objects in the user's
          *                    account at the time of the update.
          */
-        void onUpdate(@NonNull ArrayList<Thermostat> thermostats);
+        void onUpdate(@NonNull List<Thermostat> thermostats);
     }
 
     /**
@@ -87,10 +96,10 @@ public interface NestListener {
         /**
          * Called when an update occurs on any {@link Structure} object.
          *
-         * @param structures an {@link ArrayList} of all {@link Structure} objects in the user's
+         * @param structures an {@link List} of all {@link Structure} objects in the user's
          *                   account at the time of the update.
          */
-        void onUpdate(@NonNull ArrayList<Structure> structures);
+        void onUpdate(@NonNull List<Structure> structures);
     }
 
     /**
@@ -100,10 +109,10 @@ public interface NestListener {
         /**
          * Called when an update occurs on any {@link SmokeCOAlarm} device.
          *
-         * @param smokeCOAlarms an {@link ArrayList} of all {@link SmokeCOAlarm} objects in the
+         * @param smokeCOAlarms an {@link List} of all {@link SmokeCOAlarm} objects in the
          *                      user's account at the time of the update.
          */
-        void onUpdate(@NonNull ArrayList<SmokeCOAlarm> smokeCOAlarms);
+        void onUpdate(@NonNull List<SmokeCOAlarm> smokeCOAlarms);
     }
 
     /**
@@ -119,15 +128,9 @@ public interface NestListener {
     }
 
     /**
-     * Listens for updates to the status of authentication of {@link NestAPI} to the Nest service.
+     * Listens for updates to the status of authentication of {@link WwnApiUrls} to the Nest service.
      */
     interface AuthListener extends NestListener {
-        /**
-         * Called when the authentication with the token succeeds. The {@link NestAPI} instance is
-         * now ready to make read/write calls to the Nest API.
-         */
-        void onAuthSuccess();
-
         /**
          * Called when the authentication with the token fails. An exception is returned that can
          * either be thrown or read to determine the cause of the error.
@@ -141,5 +144,10 @@ public interface NestListener {
          * occurs if the access token is revoked or has expired.
          */
         void onAuthRevoked();
+    }
+
+    interface ErrorListener extends NestListener {
+
+        void onError(ErrorMessage errorMessage);
     }
 }

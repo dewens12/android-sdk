@@ -31,6 +31,8 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nestlabs.sdk.models.NestToken;
+import com.nestlabs.sdk.models.Utils;
 
 import okhttp3.Call;
 import okhttp3.MediaType;
@@ -42,9 +44,9 @@ import okhttp3.Response;
 import java.io.IOException;
 
 /**
- * NestAuthActivity is an Activity used by NestAPI to complete the OAuth 2.0 flow for authorization
+ * NestAuthActivity is an Activity used by WwnClient to complete the OAuth 2.0 flow for authorization
  * of a user with the Nest API. When created, it launches a WebView that will open the Nest auth
- * page and get authorization from the user for the selected permissions of the Nest API.
+ * page and get authorization from the user for the selected permissions of the Wwn API.
  */
 public class NestAuthActivity extends Activity {
     private static final String TAG = "NestAuthActivity";
@@ -82,7 +84,7 @@ public class NestAuthActivity extends Activity {
         clientWebView.setWebChromeClient(new ProgressChromeClient());
         clientWebView.setWebViewClient(new RedirectClient());
 
-        String url = String.format(NestAPI.CLIENT_CODE_URL, mNestConfig.getClientID(),
+        String url = String.format(WwnApiUrls.CLIENT_CODE_URL, mNestConfig.getClientID(),
                 mNestConfig.getStateValue());
         WebSettings webSettings = clientWebView.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -138,7 +140,7 @@ public class NestAuthActivity extends Activity {
             }
 
             // Use the code to get an access token.
-            String formattedUrl = String.format(NestAPI.ACCESS_URL, mCode,
+            String formattedUrl = String.format(WwnApiUrls.ACCESS_URL, mCode,
                     mNestConfig.getClientID(),
                     mNestConfig.getClientSecret());
             RequestBody body = RequestBody.create(TYPE_JSON, "");

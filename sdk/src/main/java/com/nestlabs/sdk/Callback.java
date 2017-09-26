@@ -17,7 +17,7 @@
 package com.nestlabs.sdk;
 
 /**
- * Callback is used when setting values using the NestAPI. You can pass in a new instance of an
+ * Callback is used when setting values using the WwnClient. You can pass in a new instance of an
  * anonymous class implementing Callback and get notified when the result of setting the value is
  * returned.
  */
