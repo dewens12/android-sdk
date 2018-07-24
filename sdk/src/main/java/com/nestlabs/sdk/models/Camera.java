@@ -265,7 +265,7 @@ public class Camera extends Device implements Parcelable {
      * to capture last event data, the Nest Cam must have a Nest Aware with Video History
      * subscription.
      */
-    static class LastEvent implements Parcelable {
+    public static class LastEvent implements Parcelable {
         public static final String KEY_HAS_SOUND = "has_sound";
         public static final String KEY_HAS_MOTION = "has_motion";
         public static final String KEY_HAS_PERSON = "has_person";
